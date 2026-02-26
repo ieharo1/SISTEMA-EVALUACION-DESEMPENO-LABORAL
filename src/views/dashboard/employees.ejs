@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <style>
+    :root { --primary: #1e3a5f; --secondary: #3498db; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+    .sidebar { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .sidebar a { display: block; padding: 12px 15px; color: var(--primary); text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: 0.3s; }
+    .sidebar a:hover, .sidebar a.active { background: var(--secondary); color: white; }
+    .footer-custom { background: var(--primary); color: white; padding: 30px 0; }
+    .footer-custom a { color: var(--secondary); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, var(--primary), var(--secondary));">
+    <div class="container">
+      <a class="navbar-brand" href="/"><i class="fas fa-chart-line me-2"></i>Evaluación de Desempeño</a>
+      <div class="d-flex align-items-center">
+        <span class="text-white me-3"><i class="fas fa-user me-1"></i><%= user.username %></span>
+        <button class="btn btn-outline-light btn-sm" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        <div class="sidebar">
+          <h6 class="text-uppercase text-muted mb-3">Menú</h6>
+          <a href="/dashboard"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+          <a href="/dashboard/empleados" class="active"><i class="fas fa-users me-2"></i>Empleados</a>
+          <a href="/dashboard/evaluaciones"><i class="fas fa-clipboard-check me-2"></i>Evaluaciones</a>
+          <a href="/dashboard/evaluacion/nueva"><i class="fas fa-plus-circle me-2"></i>Nueva Evaluación</a>
+          <a href="/dashboard/metricas"><i class="fas fa-chart-bar me-2"></i>Métricas</a>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2><i class="fas fa-users me-2"></i>Empleados</h2>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">
+            <i class="fas fa-plus me-1"></i>Nuevo Empleado
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover" id="employeesTable">
+                <thead><tr><th>Nombre</th><th>Email</th><th>Departamento</th><th>Cargo</th><th>Estado</th><th>Acciones</th></tr></thead>
+                <tbody>
+                  <% employees.forEach(emp => { %>
+                    <tr>
+                      <td><%= emp.name %> <%= emp.lastName %></td>
+                      <td><%= emp.email %></td>
+                      <td><%= emp.department %></td>
+                      <td><%= emp.position %></td>
+                      <td><span class="badge bg-<%= emp.status === 'activo' ? 'success' : 'secondary' %>"><%= emp.status %></span></td>
+                      <td>
+                        <button class="btn btn-sm btn-primary" onclick="editEmployee('<%= emp._id %>')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteEmployee('<%= emp._id %>')"><i class="fas fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  <% }) %>
+                  <% if (employees.length === 0) { %><tr><td colspan="6" class="text-center text-muted">No hay empleados</td></tr><% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="employeeModal" tabindex="-1">
+    <div class="modal-dialog"><div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Nuevo Empleado</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        <form id="employeeForm">
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">Nombre</label><input type="text" class="form-control" name="name" required></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Apellido</label><input type="text" class="form-control" name="lastName" required></div>
+          </div>
+          <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" name="email" required></div>
+          <div class="row">
+            <div class="col-md-6 mb-3"><label class="form-label">Departamento</label><input type="text" class="form-control" name="department" required></div>
+            <div class="col-md-6 mb-3"><label class="form-label">Cargo</label><input type="text" class="form-control" name="position" required></div>
+          </div>
+          <div class="mb-3"><label class="form-label">Fecha de Contratación</label><input type="date" class="form-control" name="hireDate" required></div>
+          <button type="submit" class="btn btn-primary w-100">Guardar</button>
+        </form>
+      </div>
+    </div></div>
+  </div>
+
+  <footer class="footer-custom">
+    <div class="container">
+      <div class="row"><div class="col-12 text-center">
+        <h5 class="mb-3">👨‍💻 Desarrollado por Isaac Esteban Haro Torres</h5>
+        <p class="mb-2"><strong>Ingeniero en Sistemas</strong> · <strong>Full Stack</strong> · <strong>Automatización</strong> · <strong>Data</strong></p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+          <a href="mailto:zackharo1@gmail.com"><i class="fas fa-envelope me-1"></i>Email: zackharo1@gmail.com</a>
+          <a href="https://wa.me/59398805517" target="_blank"><i class="fab fa-whatsapp me-1"></i>WhatsApp: 098805517</a>
+          <a href="https://github.com/ieharo1" target="_blank"><i class="fab fa-github me-1"></i>GitHub</a>
+          <a href="https://ieharo1.github.io/portafolio-isaac.haro/" target="_blank"><i class="fas fa-globe me-1"></i>Portafolio</a>
+        </div>
+        <hr class="my-3" style="border-color: rgba(255,255,255,0.3);">
+        <p class="mb-0 text-white-50"><small>© <%= new Date().getFullYear() %> Sistema de Evaluación</small></p>
+      </div></div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function getToken() { return localStorage.getItem('eval_token'); }
+    function logout() { localStorage.removeItem('eval_token'); window.location.href = '/'; }
+
+    document.getElementById('employeeForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const res = await fetch('/api/employees', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+        body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+      });
+      const result = await res.json();
+      if (result.success) { location.reload(); }
+      else { alert(result.message); }
+    });
+
+    async function deleteEmployee(id) {
+      if (!confirm('¿Eliminar empleado?')) return;
+      const res = await fetch(`/api/employees/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${getToken()}` } });
+      if (res.ok) location.reload();
+    }
+
+    function editEmployee(id) { alert('Función de edicióncoming soon'); }
+  </script>
+</body>
+</html>

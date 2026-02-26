@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluación de Desempeño - Inicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <style>
+    :root { --primary: #1e3a5f; --secondary: #3498db; }
+    body { font-family: 'Segoe UI', sans-serif; }
+    .hero { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 80px 0; border-radius: 0 0 50px 50px; }
+    .feature-card { border: none; border-radius: 15px; padding: 30px; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s; height: 100%; }
+    .feature-card:hover { transform: translateY(-10px); }
+    .feature-icon { font-size: 3rem; color: var(--secondary); margin-bottom: 20px; }
+    .footer-custom { background: var(--primary); color: white; padding: 40px 0; }
+    .footer-custom a { color: var(--secondary); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, var(--primary), var(--secondary));">
+    <div class="container">
+      <a class="navbar-brand" href="/"><i class="fas fa-chart-line me-2"></i>Evaluación de Desempeño</a>
+      <div class="d-flex">
+        <button class="btn btn-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-sign-in-alt me-1"></i>Iniciar Sesión</button>
+        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#registerModal"><i class="fas fa-user-plus me-1"></i>Registrarse</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container text-center">
+      <h1 class="display-3 fw-bold mb-4"><i class="fas fa-chart-line me-3"></i>Sistema de Evaluación de Desempeño</h1>
+      <p class="lead mb-5">Plataforma profesional para gestionar evaluaciones de desempeño laboral</p>
+      <button class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#registerModal"><i class="fas fa-rocket me-2"></i>Comenzar Ahora</button>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Características Principales</h2>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="feature-card"><i class="fas fa-users feature-icon"></i><h4>Gestión de Empleados</h4><p>CRUD completo de empleados con toda su información</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><i class="fas fa-clipboard-check feature-icon"></i><h4>Evaluaciones</h4><p>Evaluaciones por competencias con puntuación ponderada</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><i class="fas fa-chart-bar feature-icon"></i><h4>Métricas</h4><p>Dashboard con gráficos y métricas de rendimiento</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><i class="fas fa-history feature-icon"></i><h4>Historial</h4><p>Historial completo de evaluaciones por empleado</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><i class="fas fa-file-pdf feature-icon"></i><h4>Reportes PDF</h4><p>Exportación de evaluaciones en formato PDF</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><i class="fas fa-shield-alt feature-icon"></i><h4>Seguridad</h4><p>Control de roles y bitácora de cambios</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-custom">
+    <div class="container">
+      <div class="row"><div class="col-12 text-center">
+        <h5 class="mb-3">👨‍💻 Desarrollado por Isaac Esteban Haro Torres</h5>
+        <p class="mb-2"><strong>Ingeniero en Sistemas</strong> · <strong>Full Stack</strong> · <strong>Automatización</strong> · <strong>Data</strong></p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+          <a href="mailto:zackharo1@gmail.com"><i class="fas fa-envelope me-1"></i>Email: zackharo1@gmail.com</a>
+          <a href="https://wa.me/59398805517" target="_blank"><i class="fab fa-whatsapp me-1"></i>WhatsApp: 098805517</a>
+          <a href="https://github.com/ieharo1" target="_blank"><i class="fab fa-github me-1"></i>GitHub</a>
+          <a href="https://ieharo1.github.io/portafolio-isaac.haro/" target="_blank"><i class="fas fa-globe me-1"></i>Portafolio</a>
+        </div>
+        <hr class="my-3" style="border-color: rgba(255,255,255,0.3);">
+        <p class="mb-0 text-white-50"><small>© <%= new Date().getFullYear() %> Sistema de Evaluación de Desempeño</small></p>
+      </div></div>
+    </div>
+  </footer>
+
+  <div class="modal fade" id="loginModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">Iniciar Sesión</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body">
+      <form id="loginForm">
+        <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" name="email" required></div>
+        <div class="mb-3"><label class="form-label">Contraseña</label><input type="password" class="form-control" name="password" required></div>
+        <div id="loginError" class="alert alert-danger d-none"></div>
+        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+      </form>
+    </div>
+  </div></div></div>
+
+  <div class="modal fade" id="registerModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">Registrarse</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body">
+      <form id="registerForm">
+        <div class="mb-3"><label class="form-label">Usuario</label><input type="text" class="form-control" name="username" required minlength="3"></div>
+        <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" name="email" required></div>
+        <div class="mb-3"><label class="form-label">Contraseña</label><input type="password" class="form-control" name="password" required minlength="6"></div>
+        <div id="registerError" class="alert alert-danger d-none"></div>
+        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+      </form>
+    </div>
+  </div></div></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function setToken(t) { localStorage.setItem('eval_token', t); }
+    function getToken() { return localStorage.getItem('eval_token'); }
+
+    document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const res = await fetch('/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(e.target))) });
+      const result = await res.json();
+      if (result.success) { setToken(result.token); window.location.href = '/dashboard'; }
+      else { document.getElementById('loginError').textContent = result.message; document.getElementById('loginError').classList.remove('d-none'); }
+    });
+
+    document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const res = await fetch('/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(e.target))) });
+      const result = await res.json();
+      if (result.success) { setToken(result.token); window.location.href = '/dashboard'; }
+      else { document.getElementById('registerError').textContent = result.message; document.getElementById('registerError').classList.remove('d-none'); }
+    });
+
+    if (getToken()) { fetch('/me', { headers: { 'Authorization': `Bearer ${getToken()}` } }).then(r => r.json()).then(d => { if (!d.success) localStorage.removeItem('eval_token'); else window.location.href = '/dashboard'; }); }
+  </script>
+</body>
+</html>
